@@ -2,13 +2,13 @@
 {% block content %}
 <div class="login-wrap">
   <div class="login-card">
-    <h2>🔐 로그인</h2>
+    <h2>로그인</h2>
     {% if error %}
       <p class="error">{{ error }}</p>
     {% endif %}
     <form method="post">
       <label>아이디
-        <input type="text" name="username" required autofocus placeholder="아이디 입력">
+        <input type="text" name="username" required placeholder="아이디 입력">
       </label>
       <label>비밀번호
         <input type="password" name="password" required placeholder="비밀번호 입력">
