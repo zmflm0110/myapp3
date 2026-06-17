@@ -1,45 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>📋 오답 기록 목록</h2>
-{% if records %}
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>작성자</th>
-          <th>문제 제목 / 출처</th>
-          <th>난이도</th>
-          <th>틀린 이유</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for r in records %}
-        <tr>
-          <td>{{ r.username }}</td>
-          <td>{{ r.title }}</td>
-          <td>{{ r.difficulty }}</td>
-          <td>{{ r.reason }}</td>
-          <td>
-            {% if session.username == r.username %}
-            <form action="/delete/{{ r.id }}" method="post" onsubmit="return confirm('삭제하시겠습니까?')">
-              <button type="submit" class="btn btn-danger">삭제</button>
-            </form>
-            {% endif %}
-          </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
-{% else %}
-  <div class="empty">
-    <p>📭 등록된 오답 기록이 없습니다.</p>
+<section class="hero">
+  <h1 class="hero-title">
+    <span class="accent">쉽게 만드는</span> <span class="cream">수학</span><br>
+    <span class="cream">오답노트</span>
+  </h1>
+
+  <p class="hero-sub">
+    틀린 문제를 <span class="key">기록</span>하고,
+    <span class="key">난이도</span>와 <span class="key">이유</span>를 정리해
+    나의 <span class="key">약점</span>을 추적하세요.<br>
+    더 적은 노력으로, 더 빠른 성장.
+  </p>
+
+  <div class="hero-cta">
     {% if session.username %}
-      <a href="/add" class="btn btn-primary">첫 기록 추가하기</a>
+      <a href="/add" class="btn btn-primary">기록 추가하기</a>
     {% else %}
-      <a href="/login" class="btn btn-primary">로그인 후 기록 추가하기</a>
+      <a href="/login" class="btn btn-primary">시작하기</a>
     {% endif %}
   </div>
-{% endif %}
+</section>
 {% endblock %}
