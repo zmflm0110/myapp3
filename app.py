@@ -14,7 +14,7 @@ next_id = 1
 
 @app.route('/')
 def index():
-    return render_template('index.html', records=records)
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -22,21 +22,22 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # 로그인 확인
         if username in users and users[username] == password:
             session['username'] = username
-            return redirect(url_for('mypage'))
+            return redirect(url_for('index'))
         else:
             error = '아이디 또는 비밀번호가 틀렸습니다.'
             return render_template('login.html', error=error)
     return render_template('login.html')
 
 
-@app.route('/mypage')
-def mypage():
+@app.route('/record')
+def record():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('mypage.html', username=session['username'])
+    user = session['username']
+    user_records = [r for r in records if r['username'] == user]
+    return render_template('record.html', records=user_records)
 
 
 @app.route('/logout')
@@ -51,20 +52,19 @@ def add():
         return redirect(url_for('login'))
     if request.method == 'POST':
         global next_id
-        title = request.form['title'].strip()# 사용자의 실수 공백이나 빈칸 입력 방지
+        title = request.form['title'].strip()
         difficulty = int(request.form['difficulty'])
         reason = request.form['reason'].strip()
         records.append({
-            'id': next_id,#인덱스로 사용
+            'id': next_id,
             'username': session['username'],
             'title': title,
             'difficulty': difficulty,
             'reason': reason,
         })
         next_id += 1
-        return redirect(url_for('index'))
+        return redirect(url_for('record'))
     return render_template('add.html')
-
 
 
 @app.route('/delete/<int:record_id>', methods=['POST'])
@@ -79,7 +79,7 @@ def delete(record_id):
         else:
             new_records.append(r)
     records = new_records
-    return redirect(url_for('index'))
+    return redirect(url_for('record'))
 
 
 if __name__ == '__main__':
