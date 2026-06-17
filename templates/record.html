@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-card form-card--full">
+  <div class="dashboard-head">
+    <h2>나의 오답 기록</h2>
+  </div>
+
+  {% if records %}
+    <div class="record-grid">
+      {% for r in records %}
+        <div class="record-card">
+          <div class="record-header">
+            <span class="record-user">{{ r.username }}</span>
+            <span class="record-diff">난이도 {{ r.difficulty }}</span>
+          </div>
+          <p class="record-title">{{ r.title }}</p>
+          <p class="record-reason">{{ r.reason }}</p>
+          <div class="record-actions">
+            <form action="/delete/{{ r.id }}" method="post" onsubmit="return confirm('삭제하시겠습니까?')">
+              <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">
+      <p>아직 등록된 오답 기록이 없습니다.</p>
+      <a href="/add" class="btn btn-primary">첫 기록 추가하기</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
