@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-card">
+  <h2>👤 마이페이지</h2>
+  <p style="color: #777; margin-bottom: 1.5rem;">안녕하세요, <strong>{{ username }}</strong>님!</p>
+
+  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+    <a href="/add" class="btn btn-primary" style="text-align:center;">➕ 오답 기록 추가</a>
+    <a href="/" class="btn btn-edit" style="text-align:center;">📋 전체 기록 보기</a>
+    <a href="/logout" class="btn btn-danger" style="text-align:center;">🚪 로그아웃</a>
+  </div>
+</div>
+{% endblock %}
