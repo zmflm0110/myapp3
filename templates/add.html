@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>➕ 오답 기록 추가</h2>
+<div class="form-card">
+  <form method="post">
+    <label>문제 제목 / 출처
+      <input type="text" name="title" placeholder="예) 수능 2025 수학 20번" required>
+    </label>
+    <label>난이도
+      <select name="difficulty">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </label>
+    <label>틀린 이유
+      <input type="text" name="reason" placeholder="예) 미분 공식 적용 실수" maxlength="100" required>
+    </label>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">저장</button>
+      <a href="/" class="btn-cancel">취소</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
